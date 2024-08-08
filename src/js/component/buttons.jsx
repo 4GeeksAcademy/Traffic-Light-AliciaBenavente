@@ -8,11 +8,11 @@ const Buttons = () => {
         yellow: "yellow",
         green: "green"
     });
+    const [availableColors, setAvailableColors] = useState(["red", "yellow", "green"]);
 
     const colorChange = () => {
 
         if (selectedColor) {
-            const availableColors = ["red", "yellow", "green"];
             const randomColor = availableColors[Math.floor(Math.random()*availableColors.length)]
             setLightColor(prevColors => ({
                 ...prevColors,
@@ -22,9 +22,16 @@ const Buttons = () => {
             alert("Please select a light first")
 
     }}
+    const addPurple = () => {
+        if(!availableColors.includes("purple")){
+            setAvailableColors(prevColors => [...prevColors, "purple"])
+            alert("Great, you added the purple color! Now try again the Change Color button")
+        }
+    };
 
     return (
         <>
+        <div className="lightAndButtons">
             <div className="ligthContainer">
                 <button onClick={() => setSelectedColor("red")} className={`light red + ${(selectedColor === "red" ? "glow" : "")}`} style={{ backgroundColor: lightColor.red}}></button>
                 <button onClick={() => setSelectedColor("yellow")} className={`light yellow  + ${(selectedColor === "yellow" ? "glow" : "")}`} style={{ backgroundColor: lightColor.yellow}}></button>
@@ -32,7 +39,9 @@ const Buttons = () => {
             </div>
             <div>
                 <button className="changeColor" onClick={colorChange}>Change Color</button>
+                <button className="addPurple" onClick={addPurple}>Add purple color</button>
             </div>
+        </div>
         </>
 
     );
